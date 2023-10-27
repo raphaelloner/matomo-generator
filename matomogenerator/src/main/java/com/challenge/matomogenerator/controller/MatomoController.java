@@ -6,10 +6,9 @@ import com.challenge.matomogenerator.exception.DuplicateException;
 import com.challenge.matomogenerator.service.MatomoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/matomo")
@@ -34,7 +33,13 @@ public class MatomoController {
         matomo.setNamespace(body.getMetadata().getNamespace());
         matomo.setName(body.getMetadata().getName());
         matomo.setHost(body.getSpec().getHost());
-        System.out.println(matomoService.saveMatomoDependency(matomo));
+        System.out.println(matomoService.saveDependency(matomo));
+
         return  ResponseEntity.ok(matomoService.createYamlString(matomo));
     }
+    @GetMapping
+    public List<Matomo> getAllMatomoDependencies(){
+        return null;
+    }
+
 }

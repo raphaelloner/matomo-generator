@@ -27,8 +27,6 @@ public class Matomo {
     public Matomo() {
     }
 
-
-
     public String getNamespace() {
         return namespace;
     }

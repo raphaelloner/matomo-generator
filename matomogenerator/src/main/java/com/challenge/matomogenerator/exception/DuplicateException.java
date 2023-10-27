@@ -3,10 +3,10 @@ package com.challenge.matomogenerator.exception;
 public class DuplicateException extends RuntimeException {
     private String message;
 
-    public DuplicateException(String msg)
+    public DuplicateException(String message)
     {
-        super(msg);
-        this.message = msg;
+        super(message);
+        this.message = message;
     }
     public DuplicateException() {}
 }

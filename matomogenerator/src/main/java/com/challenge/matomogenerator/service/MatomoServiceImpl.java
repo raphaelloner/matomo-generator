@@ -5,6 +5,8 @@ import com.challenge.matomogenerator.data.request.MatomoRequest;
 import com.challenge.matomogenerator.repository.MatomoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MatomoServiceImpl implements MatomoService {
 
@@ -15,7 +17,7 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
-    public Matomo saveMatomoDependency(Matomo matomo) {
+    public Matomo saveDependency(Matomo matomo) {
 
         return matomoRepository.save(matomo);
     }
@@ -37,6 +39,11 @@ private final MatomoRepository matomoRepository;
                       "  host: " + matomo.getHost();
         System.out.println("yamlContent = " + yamlContent);
         return  yamlContent;
+    }
+
+    @Override
+    public List<Matomo> getAllDependencies() {
+        return null;
     }
 
 
