@@ -1,13 +1,15 @@
 package com.challenge.matomogenerator.controller;
 
 import com.challenge.matomogenerator.data.Matomo;
+import com.challenge.matomogenerator.data.request.MatomoRequest;
+import com.challenge.matomogenerator.exception.DuplicateException;
 import com.challenge.matomogenerator.service.MatomoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/matomo")
@@ -18,19 +20,21 @@ public class MatomoController {
         this.matomoService = matomoService;
     }
 
-    //String yamlContent = "apiVersion: glasskube.eu/v1alpha1\n" +
-    //                "kind: Matomo\n" +
-    //                "metadata:\n" +
-    //                "  name: " + matomo.getName() + "\n" +
-    //                "  namespace: " + matomo.getNamespace() + "\n" +
-    //                "spec:\n" +
-    //                "  host: " + matomo.getHost();
-    //        return yamlContent;
-
-
     @PostMapping
-    public Optional<Matomo> savePost(@RequestBody Matomo matomo){
-
-        return Optional.of(matomoService.saveMatomoDependency(matomo)) ;
+    public ResponseEntity<String> saveMatomoDependency(@RequestBody MatomoRequest body) {
+        try {
+            if (matomoService.dependencyAlreadyPersistence(body)) {
+                throw new DuplicateException("There exist already a matomo resource in the database!");
+            }
+        }
+        catch (DuplicateException ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+        Matomo matomo = new Matomo();
+        matomo.setNamespace(body.getMetadata().getNamespace());
+        matomo.setName(body.getMetadata().getName());
+        matomo.setHost(body.getSpec().getHost());
+        System.out.println(matomoService.saveMatomoDependency(matomo));
+        return  ResponseEntity.ok(matomoService.createYamlString(matomo));
     }
 }
