@@ -43,6 +43,7 @@ private final MatomoRepository matomoRepository;
 
     @Override
     public List<Matomo> getAllDependencies() {
+
         return null;
     }
 

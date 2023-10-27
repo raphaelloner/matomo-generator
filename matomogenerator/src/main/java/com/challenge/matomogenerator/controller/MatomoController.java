@@ -21,6 +21,7 @@ public class MatomoController {
 
     @PostMapping
     public ResponseEntity<String> saveMatomoDependency(@RequestBody MatomoRequest body) {
+
         try {
             if (matomoService.dependencyAlreadyPersistence(body)) {
                 throw new DuplicateException("There exist already a matomo resource in the database!");
@@ -29,6 +30,7 @@ public class MatomoController {
         catch (DuplicateException ex){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
+
         Matomo matomo = new Matomo();
         matomo.setNamespace(body.getMetadata().getNamespace());
         matomo.setName(body.getMetadata().getName());

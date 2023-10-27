@@ -1,5 +1,4 @@
 package com.challenge.matomogenerator.exception;
-
 public class DuplicateException extends RuntimeException {
     private String message;
 
