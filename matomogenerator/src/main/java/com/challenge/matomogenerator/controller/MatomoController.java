@@ -7,7 +7,6 @@ import com.challenge.matomogenerator.service.MatomoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -30,7 +29,6 @@ public class MatomoController {
         catch (DuplicateException ex){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
-
         Matomo matomo = new Matomo();
         matomo.setNamespace(body.getMetadata().getNamespace());
         matomo.setName(body.getMetadata().getName());
@@ -40,8 +38,8 @@ public class MatomoController {
         return  ResponseEntity.ok(matomoService.createYamlString(matomo));
     }
     @GetMapping
-    public List<Matomo> getAllMatomoDependencies(){
-        return null;
+    public List<String> getAllMatomoDependencies(){
+        return matomoService.getAllDependencies();
     }
 
 }

@@ -10,6 +10,6 @@ public interface MatomoService {
 Matomo saveDependency(Matomo matomo);
 boolean dependencyAlreadyPersistence(MatomoRequest body);
 String createYamlString(Matomo matomo);
-List<Matomo> getAllDependencies();
+List<String> getAllDependencies();
 
 }

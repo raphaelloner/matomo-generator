@@ -6,6 +6,7 @@ import com.challenge.matomogenerator.repository.MatomoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MatomoServiceImpl implements MatomoService {
@@ -42,9 +43,9 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
-    public List<Matomo> getAllDependencies() {
+    public List<String> getAllDependencies() {
 
-        return null;
+        return matomoRepository.findAll().stream().map(this::createYamlString).collect(Collectors.toList());
     }
 
 
