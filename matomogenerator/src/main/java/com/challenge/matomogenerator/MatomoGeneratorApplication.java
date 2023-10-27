@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MatomogeneratorApplication {
+public class MatomoGeneratorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MatomogeneratorApplication.class, args);
+		SpringApplication.run(MatomoGeneratorApplication.class, args);
 	}
 
 }
