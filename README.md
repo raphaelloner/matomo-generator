@@ -1,4 +1,5 @@
 # matomo-generator
-# steps to run Application
-# 1.create a postgres Database with the name matomogenerator
-# 2.add in properties.application username and password from your local postgre sql
+# first step
+Create a postgres Database with the name matomogenerator
+# second step
+Add your username and password from postgre sql to application.properties file
