@@ -1,7 +1,12 @@
 package com.challenge.matomogenerator.exception;
 
-public class DuplicateMatomoResourceException extends Throwable {
-    public DuplicateMatomoResourceException(String s) {
-        super(s);
+public class DuplicateException extends RuntimeException {
+    private String message;
+
+    public DuplicateException(String msg)
+    {
+        super(msg);
+        this.message = msg;
     }
+    public DuplicateException() {}
 }

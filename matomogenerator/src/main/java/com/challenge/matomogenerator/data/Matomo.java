@@ -11,13 +11,14 @@ public class Matomo {
     private Long id;
     @Column(name="matomo_namespace")
     private String namespace;
+
     @Column(name = "matomo_name")
     private String name;
     @Column(name = "matomo_host")
     private String host;
 
-    public Matomo(Long id, String namespace, String name, String host) {
-        this.id = id;
+    public Matomo( String namespace, String name, String host) {
+
         this.namespace = namespace;
         this.name = name;
         this.host = host;
@@ -26,13 +27,7 @@ public class Matomo {
     public Matomo() {
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNamespace() {
         return namespace;

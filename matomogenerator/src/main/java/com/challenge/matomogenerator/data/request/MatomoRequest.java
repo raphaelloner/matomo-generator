@@ -1,6 +1,6 @@
 package com.challenge.matomogenerator.data.request;
 
-public class RequestMatomo {
+public class MatomoRequest {
     private Metadata metadata;
     private Spec spec;
 
