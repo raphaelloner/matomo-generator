@@ -3,7 +3,7 @@
 
 ##connect to database
 spring.datasource.driver-class-name=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://localhost:5432/placeholder
+spring.datasource.url=jdbc:postgresql://localhost:5432/matomogenerator
 spring.datasource.username=
 spring.datasource.password=
 ##JPA Config
