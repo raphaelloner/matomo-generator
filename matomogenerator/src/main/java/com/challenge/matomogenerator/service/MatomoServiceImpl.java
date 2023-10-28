@@ -1,9 +1,14 @@
 package com.challenge.matomogenerator.service;
 
 import com.challenge.matomogenerator.data.Matomo;
+import com.challenge.matomogenerator.data.MatomoDependency;
 import com.challenge.matomogenerator.data.request.MatomoRequest;
+import com.challenge.matomogenerator.data.request.Metadata;
+import com.challenge.matomogenerator.data.request.Spec;
 import com.challenge.matomogenerator.repository.MatomoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.yaml.snakeyaml.Yaml;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,21 +36,59 @@ private final MatomoRepository matomoRepository;
     @Override
     public String createYamlString(Matomo matomo) {
 
-        String yamlContent = "apiVersion: glasskube.eu/v1alpha1\n" +
-                      "kind: Matomo\n" +
-                      "metadata:\n" +
-                      "  name: " + matomo.getName() + "\n" +
-                      "  namespace: " + matomo.getNamespace() + "\n" +
-                      "spec:\n" +
+        String yamlContent = "apiVersion: glasskube.eu/v1alpha1" +
+                      "kind: Matomo" +
+                      "metadata:" +
+                      "  name: " + matomo.getName() + "" +
+                      "  namespace: " + matomo.getNamespace() + "" +
+                      "spec:" +
                       "  host: " + matomo.getHost();
+
+        return  yamlContent;
+    }
+
+    @Override
+    public String createYamlOutputString(Matomo matomo) {
+        String yamlContent = "apiVersion: glasskube.eu/v1alpha1\n" +
+                "kind: Matomo\n" +
+                "metadata:\n" +
+                "  name: " + matomo.getName() + "\n" +
+                "  namespace: " + matomo.getNamespace() + "\n" +
+                "spec:\n" +
+                "  host: " + matomo.getHost();
         System.out.println("yamlContent = " + yamlContent);
         return  yamlContent;
     }
 
     @Override
-    public List<String> getAllDependencies() {
+    public Yaml createYaml(MatomoDependency matomoDependency) {
+       Yaml yaml = new Yaml();
+       yaml.dump(matomoDependency);
 
-        return matomoRepository.findAll().stream().map(this::createYamlString).collect(Collectors.toList());
+        return yaml;
+    }
+
+    @Override
+    public List<MatomoDependency> getAllDependencies() {
+
+        return matomoRepository.findAll().stream().map(value-> createMatomoDependency(value)).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public MatomoDependency createMatomoDependency(Matomo matomo) {
+        Metadata metadata = new Metadata();
+        metadata.setName(matomo.getName());
+        metadata.setNamespace(matomo.getNamespace());
+        Spec spec = new Spec();
+        spec.setHost(matomo.getHost());
+        MatomoDependency matomoDependency = new MatomoDependency();
+        matomoDependency.setApiVersion("glasskube.eu/v1alpha1");
+        matomoDependency.setKind("Matomo");
+        matomoDependency.setSpec(spec);
+        matomoDependency.setMetadata(metadata);
+
+        return matomoDependency;
     }
 
 
