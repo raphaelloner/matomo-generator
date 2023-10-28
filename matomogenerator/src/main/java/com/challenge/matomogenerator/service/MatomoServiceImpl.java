@@ -49,6 +49,7 @@ private final MatomoRepository matomoRepository;
        Yaml yaml = new Yaml();
        yaml.dump(matomoDependency);
 
+
         return yaml;
     }
 
@@ -67,8 +68,6 @@ private final MatomoRepository matomoRepository;
         Spec spec = new Spec();
         spec.setHost(matomo.getHost());
         MatomoDependency matomoDependency = new MatomoDependency();
-        matomoDependency.setApiVersion("glasskube.eu/v1alpha1");
-        matomoDependency.setKind("Matomo");
         matomoDependency.setSpec(spec);
         matomoDependency.setMetadata(metadata);
 

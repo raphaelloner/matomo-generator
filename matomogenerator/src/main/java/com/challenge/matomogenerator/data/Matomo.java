@@ -11,7 +11,6 @@ public class Matomo {
     private Long id;
     @Column(name="matomo_namespace")
     private String namespace;
-
     @Column(name = "matomo_name")
     private String name;
     @Column(name = "matomo_host")
@@ -27,9 +26,7 @@ public class Matomo {
     public Matomo() {
     }
 
-    public String getNamespace() {
-        return namespace;
-    }
+    public String getNamespace() {return namespace;}
 
     public void setNamespace(String namespace) {
         this.namespace = namespace;

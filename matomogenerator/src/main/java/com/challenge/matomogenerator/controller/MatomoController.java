@@ -30,6 +30,7 @@ public class MatomoController {
             }
         }
         catch (DuplicateException ex){
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
         Matomo matomo = new Matomo();
