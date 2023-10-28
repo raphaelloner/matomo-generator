@@ -11,7 +11,6 @@ import java.util.List;
 public interface MatomoService {
 Matomo saveDependency(Matomo matomo);
 boolean dependencyAlreadyPersistence(MatomoRequest body);
-String createYamlString(Matomo matomo);
 String createYamlOutputString(Matomo matomo);
 Yaml createYaml(MatomoDependency matomoDependency);
 List<MatomoDependency> getAllDependencies();

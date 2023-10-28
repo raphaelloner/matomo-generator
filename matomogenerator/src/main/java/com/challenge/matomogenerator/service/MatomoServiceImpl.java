@@ -7,9 +7,7 @@ import com.challenge.matomogenerator.data.request.Metadata;
 import com.challenge.matomogenerator.data.request.Spec;
 import com.challenge.matomogenerator.repository.MatomoRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.yaml.snakeyaml.Yaml;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,20 +29,6 @@ private final MatomoRepository matomoRepository;
     @Override
     public boolean dependencyAlreadyPersistence(MatomoRequest body) {
         return matomoRepository.existsByNameAndNamespace(body.getMetadata().getName(),body.getMetadata().getNamespace());
-    }
-
-    @Override
-    public String createYamlString(Matomo matomo) {
-
-        String yamlContent = "apiVersion: glasskube.eu/v1alpha1" +
-                      "kind: Matomo" +
-                      "metadata:" +
-                      "  name: " + matomo.getName() + "" +
-                      "  namespace: " + matomo.getNamespace() + "" +
-                      "spec:" +
-                      "  host: " + matomo.getHost();
-
-        return  yamlContent;
     }
 
     @Override
