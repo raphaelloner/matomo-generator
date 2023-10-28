@@ -1,10 +1,10 @@
 package com.challenge.matomogenerator.service;
 
-import com.challenge.matomogenerator.data.Matomo;
+import com.challenge.matomogenerator.data.MatomoDatabase;
 import com.challenge.matomogenerator.data.MatomoDependency;
-import com.challenge.matomogenerator.data.request.MatomoRequest;
-import com.challenge.matomogenerator.data.request.Metadata;
-import com.challenge.matomogenerator.data.request.Spec;
+import com.challenge.matomogenerator.data.MatomoRequest;
+import com.challenge.matomogenerator.data.Metadata;
+import com.challenge.matomogenerator.data.Spec;
 import com.challenge.matomogenerator.repository.MatomoRepository;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
@@ -21,9 +21,9 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
-    public Matomo saveDependency(Matomo matomo) {
+    public MatomoDatabase saveDependency(MatomoDatabase matomoDatabase) {
 
-        return matomoRepository.save(matomo);
+        return matomoRepository.save(matomoDatabase);
     }
 
     @Override
@@ -32,14 +32,14 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
-    public String createYamlOutputString(Matomo matomo) {
+    public String createYamlOutputString(MatomoDatabase matomoDatabase) {
         String yamlContent = "apiVersion: glasskube.eu/v1alpha1\n" +
                 "kind: Matomo\n" +
                 "metadata:\n" +
-                "  name: " + matomo.getName() + "\n" +
-                "  namespace: " + matomo.getNamespace() + "\n" +
+                "  name: " + matomoDatabase.getName() + "\n" +
+                "  namespace: " + matomoDatabase.getNamespace() + "\n" +
                 "spec:\n" +
-                "  host: " + matomo.getHost();
+                "  host: " + matomoDatabase.getHost();
         System.out.println("yamlContent = " + yamlContent);
         return  yamlContent;
     }
@@ -61,16 +61,15 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
-    public MatomoDependency createMatomoDependency(Matomo matomo) {
+    public MatomoDependency createMatomoDependency(MatomoDatabase matomoDatabase) {
         Metadata metadata = new Metadata();
-        metadata.setName(matomo.getName());
-        metadata.setNamespace(matomo.getNamespace());
+        metadata.setName(matomoDatabase.getName());
+        metadata.setNamespace(matomoDatabase.getNamespace());
         Spec spec = new Spec();
-        spec.setHost(matomo.getHost());
+        spec.setHost(matomoDatabase.getHost());
         MatomoDependency matomoDependency = new MatomoDependency();
         matomoDependency.setSpec(spec);
         matomoDependency.setMetadata(metadata);
-
         return matomoDependency;
     }
 

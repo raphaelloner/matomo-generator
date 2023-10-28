@@ -1,14 +1,13 @@
 package com.challenge.matomogenerator.controller;
 
-import com.challenge.matomogenerator.data.Matomo;
+import com.challenge.matomogenerator.data.MatomoDatabase;
 import com.challenge.matomogenerator.data.MatomoDependency;
-import com.challenge.matomogenerator.data.request.MatomoRequest;
+import com.challenge.matomogenerator.data.MatomoRequest;
 import com.challenge.matomogenerator.exception.DuplicateException;
 import com.challenge.matomogenerator.service.MatomoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.Yaml;
 
 import java.util.List;
 
@@ -33,13 +32,12 @@ public class MatomoController {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
-        Matomo matomo = new Matomo();
-        matomo.setNamespace(body.getMetadata().getNamespace());
-        matomo.setName(body.getMetadata().getName());
-        matomo.setHost(body.getSpec().getHost());
-        System.out.println(matomoService.saveDependency(matomo));
+        MatomoDatabase matomoDatabase = new MatomoDatabase();
+        matomoDatabase.setNamespace(body.getMetadata().getNamespace());
+        matomoDatabase.setName(body.getMetadata().getName());
+        matomoDatabase.setHost(body.getSpec().getHost());
 
-        return  ResponseEntity.ok(matomoService.createYamlOutputString(matomo));
+        return  ResponseEntity.ok(matomoService.createYamlOutputString(matomoDatabase));
     }
     @GetMapping()
     public List<MatomoDependency> getAllMatomoDependencies(){

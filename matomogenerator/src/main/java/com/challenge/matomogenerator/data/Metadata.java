@@ -1,4 +1,4 @@
-package com.challenge.matomogenerator.data.request;
+package com.challenge.matomogenerator.data;
 
 public class Metadata {
     private String name;

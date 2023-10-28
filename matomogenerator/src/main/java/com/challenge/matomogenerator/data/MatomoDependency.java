@@ -1,28 +1,21 @@
 package com.challenge.matomogenerator.data;
 
-import com.challenge.matomogenerator.data.request.Metadata;
-import com.challenge.matomogenerator.data.request.Spec;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Value;
 
 public class MatomoDependency {
-
-    @Value("${matomo.dependency.apiversion}")
-    private String apiVersion;
-    @Value("${matomo.dependency.kind}")
+    private  String apiVersion;
     private String kind;
-
     private Metadata metadata;
-
     private Spec spec;
 
     public MatomoDependency(String apiVersion, String kind, Metadata metadata, Spec spec) {
-
+        this.apiVersion = "glasskube.eu/v1alpha1";
+        this.kind = "Matomo";
         this.metadata = metadata;
         this.spec = spec;
     }
-
     public MatomoDependency() {
+        this.apiVersion = "glasskube.eu/v1alpha1";
+        this.kind = "Matomo";
     }
 
     public Metadata getMetadata() {
@@ -40,6 +33,13 @@ public class MatomoDependency {
     public void setSpec(Spec spec) {
         this.spec = spec;
     }
+    public String getApiVersion() {
+        return apiVersion;
+    }
+
+    public void setApiVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
+    }
 
     public String getKind() {
         return kind;
@@ -47,13 +47,5 @@ public class MatomoDependency {
 
     public void setKind(String kind) {
         this.kind = kind;
-    }
-
-    public String getApiVersion() {
-        return apiVersion;
-    }
-
-    public void setApiVersion(String apiVersion) {
-        this.apiVersion = apiVersion;
     }
 }

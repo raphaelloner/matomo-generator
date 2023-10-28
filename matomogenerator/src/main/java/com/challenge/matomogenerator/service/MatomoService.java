@@ -1,21 +1,21 @@
 package com.challenge.matomogenerator.service;
 
-import com.challenge.matomogenerator.data.Matomo;
+import com.challenge.matomogenerator.data.MatomoDatabase;
 import com.challenge.matomogenerator.data.MatomoDependency;
-import com.challenge.matomogenerator.data.request.MatomoRequest;
+import com.challenge.matomogenerator.data.MatomoRequest;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.List;
 
 
 public interface MatomoService {
-Matomo saveDependency(Matomo matomo);
+MatomoDatabase saveDependency(MatomoDatabase matomoDatabase);
 boolean dependencyAlreadyPersistence(MatomoRequest body);
-String createYamlOutputString(Matomo matomo);
+String createYamlOutputString(MatomoDatabase matomoDatabase);
 
 Yaml createYaml(MatomoDependency matomoDependency);
 List<MatomoDependency> getAllDependencies();
-MatomoDependency createMatomoDependency(Matomo matomo);
+MatomoDependency createMatomoDependency(MatomoDatabase matomoDatabase);
 
 
 }
