@@ -21,10 +21,10 @@ public class MatomoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveMatomoDependency(@RequestBody MatomoRequest body) {
+    public ResponseEntity<String> saveMatomoDependency(@RequestBody MatomoRequest matomoRequest) {
 
         try {
-            if (matomoService.dependencyAlreadyPersistence(body)) {
+            if (matomoService.dependencyAlreadyPersistence(matomoRequest)) {
                 throw new DuplicateException("There exist already a matomo resource in the database!");
             }
         }
@@ -32,11 +32,8 @@ public class MatomoController {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
-        MatomoDatabase matomoDatabase = new MatomoDatabase();
-        matomoDatabase.setNamespace(body.getMetadata().getNamespace());
-        matomoDatabase.setName(body.getMetadata().getName());
-        matomoDatabase.setHost(body.getSpec().getHost());
-
+        MatomoDatabase matomoDatabase = matomoService.createMatomoDatabase(matomoRequest);
+        matomoService.saveDependency(matomoDatabase);
         return  ResponseEntity.ok(matomoService.createYamlOutputString(matomoDatabase));
     }
     @GetMapping()

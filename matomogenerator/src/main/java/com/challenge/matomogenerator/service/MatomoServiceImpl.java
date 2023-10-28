@@ -45,10 +45,16 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
+    public String createYamlString(MatomoDependency matomoDependency) {
+        Yaml yaml = createYaml(matomoDependency);
+
+        return yaml.toString();
+    }
+
+    @Override
     public Yaml createYaml(MatomoDependency matomoDependency) {
        Yaml yaml = new Yaml();
        yaml.dump(matomoDependency);
-
 
         return yaml;
     }
@@ -56,7 +62,7 @@ private final MatomoRepository matomoRepository;
     @Override
     public List<MatomoDependency> getAllDependencies() {
 
-        return matomoRepository.findAll().stream().map(value-> createMatomoDependency(value)).collect(Collectors.toList());
+        return matomoRepository.findAll().stream().map(this::createMatomoDependency).collect(Collectors.toList());
 
     }
 
@@ -71,6 +77,15 @@ private final MatomoRepository matomoRepository;
         matomoDependency.setSpec(spec);
         matomoDependency.setMetadata(metadata);
         return matomoDependency;
+    }
+
+    @Override
+    public MatomoDatabase createMatomoDatabase(MatomoRequest matomoRequest) {
+        MatomoDatabase matomoDatabase = new MatomoDatabase();
+        matomoDatabase.setNamespace(matomoRequest.getMetadata().getNamespace());
+        matomoDatabase.setName(matomoRequest.getMetadata().getName());
+        matomoDatabase.setHost(matomoRequest.getSpec().getHost());
+        return matomoDatabase;
     }
 
 
