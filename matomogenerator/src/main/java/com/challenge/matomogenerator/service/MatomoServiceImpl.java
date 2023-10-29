@@ -3,6 +3,7 @@ package com.challenge.matomogenerator.service;
 import com.challenge.matomogenerator.data.*;
 import com.challenge.matomogenerator.data.MatomoData;
 import com.challenge.matomogenerator.repository.MatomoRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 import java.util.List;
@@ -10,9 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class MatomoServiceImpl implements MatomoService {
-
 private final MatomoRepository matomoRepository;
-
     public MatomoServiceImpl(MatomoRepository matomoRepository) {
         this.matomoRepository = matomoRepository;
     }
@@ -24,7 +23,7 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
-    public boolean dependencyAlreadyPersistence(MatomoRequest body) {
+    public boolean dependencyAlreadyPersistence(@NotNull MatomoRequest body) {
         return matomoRepository.existsByNameAndNamespace(body.getMetadata().getName(),body.getMetadata().getNamespace());
     }
 
@@ -42,6 +41,7 @@ private final MatomoRepository matomoRepository;
 
     @Override
     public List<MatomoDependency> getAllDependencies() {
+
         return matomoRepository.findAll().stream().map(this::convertDataToDependency).collect(Collectors.toList());
     }
 
@@ -57,15 +57,17 @@ private final MatomoRepository matomoRepository;
     }
 
     @Override
-    public MatomoData convertRequestToData(MatomoRequest matomoRequest) {
+    public MatomoData convertRequestToData(@NotNull MatomoRequest matomoRequest) {
         MatomoData matomoData = new MatomoData();
         matomoData.setNamespace(matomoRequest.getMetadata().getNamespace());
         matomoData.setName(matomoRequest.getMetadata().getName());
         matomoData.setHost(matomoRequest.getSpec().getHost());
+
         return matomoData;
     }
+
     @Override
-    public Metadata createMetadata(MatomoData matomoData) {
+    public Metadata createMetadata(@NotNull MatomoData matomoData) {
         Metadata metadata = new Metadata();
         metadata.setName(matomoData.getName());
         metadata.setNamespace(matomoData.getNamespace());
@@ -73,9 +75,10 @@ private final MatomoRepository matomoRepository;
         return metadata;
     }
     @Override
-    public Spec createSpec(MatomoData matomoData) {
+    public Spec createSpec(@NotNull MatomoData matomoData) {
         Spec spec = new Spec();
         spec.setHost(matomoData.getHost());
+
         return spec;
     }
 

@@ -1,10 +1,7 @@
 package com.challenge.matomogenerator.service;
 
 import com.challenge.matomogenerator.data.*;
-import org.yaml.snakeyaml.Yaml;
-
 import java.util.List;
-
 
 public interface MatomoService {
 MatomoData saveMatomo(MatomoData matomoData);

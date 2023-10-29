@@ -4,6 +4,11 @@ public class MatomoRequest {
     private Metadata metadata;
     private Spec spec;
 
+    public MatomoRequest(Metadata metadata, Spec spec) {
+        this.metadata = metadata;
+        this.spec = spec;
+    }
+
     public Metadata getMetadata() {
         return metadata;
     }

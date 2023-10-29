@@ -16,8 +16,8 @@ public class MatomoData {
     @Column(name = "matomo_host")
     private String host;
 
-    public MatomoData(String namespace, String name, String host) {
-
+    public MatomoData(Long id,String namespace, String name, String host) {
+        this.id = id;
         this.namespace = namespace;
         this.name = name;
         this.host = host;
