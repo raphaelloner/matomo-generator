@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "matomo")
-public class MatomoDatabase {
+public class MatomoData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "matomo_id")
@@ -16,14 +16,14 @@ public class MatomoDatabase {
     @Column(name = "matomo_host")
     private String host;
 
-    public MatomoDatabase(String namespace, String name, String host) {
+    public MatomoData(String namespace, String name, String host) {
 
         this.namespace = namespace;
         this.name = name;
         this.host = host;
     }
 
-    public MatomoDatabase() {
+    public MatomoData() {
     }
 
     public String getNamespace() {return namespace;}

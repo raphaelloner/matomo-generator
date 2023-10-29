@@ -1,4 +1,4 @@
-# matomoDatabase-generator
+# matomoData-generator
 # first step
 Create a postgres Database with the name matomogenerator
 # second step

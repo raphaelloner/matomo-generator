@@ -1,6 +1,6 @@
 package com.challenge.matomogenerator.controller;
 
-import com.challenge.matomogenerator.data.MatomoDatabase;
+import com.challenge.matomogenerator.data.MatomoData;
 import com.challenge.matomogenerator.data.MatomoDependency;
 import com.challenge.matomogenerator.data.MatomoRequest;
 import com.challenge.matomogenerator.exception.DuplicateException;
@@ -22,19 +22,17 @@ public class MatomoController {
 
     @PostMapping
     public ResponseEntity<String> saveMatomoDependency(@RequestBody MatomoRequest matomoRequest) {
-
         try {
             if (matomoService.dependencyAlreadyPersistence(matomoRequest)) {
                 throw new DuplicateException("There exist already a matomo resource in the database!");
             }
         }
         catch (DuplicateException ex){
-
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
-        MatomoDatabase matomoDatabase = matomoService.createMatomoDatabase(matomoRequest);
-        matomoService.saveDependency(matomoDatabase);
-        return  ResponseEntity.ok(matomoService.createYamlOutputString(matomoDatabase));
+        MatomoData matomoData =  matomoService.saveMatomo(matomoService.convertRequestToData(matomoRequest));
+
+        return  ResponseEntity.ok(matomoService.convertDataToYamlOutput(matomoData));
     }
     @GetMapping()
     public List<MatomoDependency> getAllMatomoDependencies(){

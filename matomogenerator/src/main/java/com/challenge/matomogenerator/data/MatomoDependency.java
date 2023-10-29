@@ -7,12 +7,6 @@ public class MatomoDependency {
     private Metadata metadata;
     private Spec spec;
 
-    public MatomoDependency(String apiVersion, String kind, Metadata metadata, Spec spec) {
-        this.apiVersion = "glasskube.eu/v1alpha1";
-        this.kind = "Matomo";
-        this.metadata = metadata;
-        this.spec = spec;
-    }
     public MatomoDependency() {
         this.apiVersion = "glasskube.eu/v1alpha1";
         this.kind = "Matomo";
